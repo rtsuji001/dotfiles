@@ -1,0 +1,93 @@
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+#[[plugins]]
+#repo = 'Shougo/vimproc.vim'
+#build = 'make'
+#hook_post_update = '''
+#  let cmd = 'make'
+#  let g:dein#plugin.build = cmd
+#'''
+
+[[plugins]] # ステータスライン
+repo = 'itchyny/lightline.vim'
+hook_add = '''
+"  let g:lightline = {'colorscheme': 'wombat'}
+ '''
+
+[[plugins]]
+repo = 'tpope/vim-surround'
+
+[[plugins]]
+repo = 'tomtom/tcomment_vim'
+
+[[plugins]]
+repo = 'bronson/vim-trailing-whitespace'
+
+[[plugins]]
+repo = 'tpope/vim-endwise'
+
+[[plugins]]
+repo = 'ap/vim-buftabline'
+hook_add = '''
+  nmap <C-n> :bn<CR>
+  nmap <C-p> :bp<CR>
+'''
+
+[[plugins]] #カラースキーマ
+repo = 'tomasr/molokai'
+#repo = 'w0ng/vim-hybrid'
+#repo = 'nanotech/jellybeans.vim'
+#repo = 'altercation/vim-colors-solarized'
+#repo = 'vim-scripts/twilight'
+#repo= 'jonathanfilip/vim-lucius'
+#repo = 'vim-scripts/rdark'
+#repo = 'jpo/vim-railscasts-theme'
+hook_add = '''
+  set background=dark
+  set t_Co=256
+" colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
+" 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+
+[[plugins]] # vim-indent-guides
+repo = 'nathanaelkane/vim-indent-guides'
+hook_add = '''
+  let g:indent_guides_auto_colors=0
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=238
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=240
+  let g:indent_guides_enable_on_vim_startup=1
+  let g:indent_guides_guide_size=2
+'''
+
+[[plugins]]
+repo = 'Shougo/neosnippet-snippets'
+on_path = '.*'
+
+#[[plugins]] # python
+#repo = 'vim-python/python-syntax'
+#on_ft = 'python'
+#hook_add = '''
+#  let g:python_highlight_all = 1
+#'''
+#[[plugins]] # python
+#repo = 'jmcantrell/vim-virtualenv'
+
+[[plugins]] # Toml
+repo = 'cespare/vim-toml'
+on_ft = 'toml'
+
+[[plugins]] # markdown
+repo = 'plasticboy/vim-markdown'
+on_ft = 'markdown'
+
+[[plugins]]
+repo = 'mattn/webapi-vim'
+
+[[plugins]]
+repo = 'kana/vim-metarw'
+
+[[plugins]]
+repo = 'mattn/vim-metarw-gdrive'
+

@@ -1,0 +1,113 @@
+[[plugins]]
+repo = 'Shougo/neosnippet.vim'
+on_i = 1
+on_ft = 'snippet'
+depends = ['neosnippet-snippets']
+
+[[plugins]]
+repo = 'Shougo/neomru.vim'
+on_path = '.*'
+
+[[plugins]]
+repo = 'Shougo/neoyank.vim'
+on_path = '.*'
+on_i = 1
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+if = 'has("python3")'
+depends = 'neomru.vim'
+#on_event = 'BufRead'
+hook_add = '''
+  nnoremap [denite] <Nop>
+  nmap <C-w> [denite]
+  "現在開いているファイルのディレクトリ下のファイル一覧。
+  nnoremap <silent> [denite]f :<C-u>Denite -direction=topleft -cursor-wrap=true file_rec<CR>
+  "バッファ一覧
+  nnoremap <silent> [denite]b :<C-u>Denite -direction=topleft -cursor-wrap=true buffer<CR>
+  "レジスタ一覧
+  nnoremap <silent> [denite]r :<C-u>Denite -direction=topleft -cursor-wrap=true -buffer-name=register register<CR>
+  "最近使用したファイル一覧
+  nnoremap <silent> [denite]m :<C-u>Denite -direction=topleft -cursor-wrap=true file_mru<CR>
+  "ブックマーク一覧
+  nnoremap <silent> [denite]c :<C-u>Denite -direction=topleft -cursor-wrap=true bookmark<CR>
+  "ブックマークに追加
+  nnoremap <silent> [denite]a :<C-u>DeniteBookmarkAdd<CR>
+  ".git以下のディレクトリ検索
+  nnoremap <silent> [denite]k :<C-u>Denite -direction=topleft -cursor-wrap=true -path=`substitute(finddir('.git', './;'), '.git', '', 'g')` file_rec/git<CR>
+'''
+hook_post_source = '''
+  call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>', 'noremap')
+  call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>', 'noremap')
+'''
+
+#[[plugins]]
+#repo = 'Shougo/context_filetype.vim'
+
+[[plugins]]
+repo = 'Shougo/deoplete.nvim'
+if = 'has("python3")'
+#depends = 'deoplete-jedi'
+on_i = 1
+#hook_add = 'let g:deoplete#enable_at_startup = 1'
+#depends = 'context_filetype.vim'
+hook_source = '''
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#enable_ignore_case = 1
+  let g:deoplete#enable_smart_case = 1
+
+  " <TAB>: completion.
+  imap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1] =~ '\s'
+  endfunction
+
+  " <S-TAB>: completion back.
+  inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+'''
+
+[[plugins]]
+repo = 'roxma/nvim-yarp'
+if = '!has("nvim")'
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'roxma/vim-hug-neovim-rpc'
+if = '!has("nvim")'
+depends = ['deoplete.nvim']
+
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+hook_add = '''
+  nnoremap <silent><C-t> :NERDTreeToggle<CR>
+  " ファイルを開いたらNERDTreeを閉じる
+  let g:NERDTreeQuitOnOpen=1
+  " 隠しファイルを表示
+  let g:NERDTreeShowHidden=1
+  " 非表示ファイル
+  let g:NERDTreeIgnore=['\.git$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+'''
+
+[[plugins]] # python
+repo = 'zchee/deoplete-jedi'
+on_ft = 'python'
+on_i = 1
+hook_source = '''
+  let g:deoplete#sources#jedi#python_path = '/home/rtsuji005/.config/nvim/virtualenv/neovim3/bin/python3.6'
+'''
+
+#[[plugins]] # python
+#repo = 'davidhalter/jedi-vim'
+#on_ft = 'python'
+#on_i = 1
+#hook_add = '''
+#  "jedi-vimでpreviewを表示しない
+#  set completeopt-=preview
+#'''
+
+[[plugins]] # Japanese doc
+repo = 'vim-jp/vimdoc-ja'
+on_ft = 'help'
+hook_add = 'set helplang=ja,en'
+
