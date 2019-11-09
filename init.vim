@@ -61,9 +61,12 @@ set clipboard=unnamed
 
 let g:python_host_prog = '/home/rtsuji005/.config/nvim/neovim2/bin/python2'
 let g:python3_host_prog = '/home/rtsuji005/.config/nvim/neovim3/bin/python3'
+<<<<<<< HEAD
 
 let skk_large_jisyo = '/home/rtsuji005/.config/nvim/SKK-JISYO.L'
 let skk_jisyo = '/home/rtsuji005/.config/nvim/SKK-JISYO'
+=======
+>>>>>>> origin/add-new-file
 
 nnoremap <silent> <C-l> :<C-u>setlocal spell! spelllang=en_us<CR>:setlocal spell?<CR>
 

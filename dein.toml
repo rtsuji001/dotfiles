@@ -70,8 +70,15 @@ repo = 'cespare/vim-toml'
 on_ft = 'toml'
 
 [[plugins]] # markdown
+repo = 'godlygeek/tabular'
+on_ft = 'markdown'
+
+[[plugins]] # markdown
 repo = 'plasticboy/vim-markdown'
 on_ft = 'markdown'
+hook_add = '''
+  source ~/.config/nvim/plugins/vim-markdown.vim
+'''
 
 [[plugins]]
 repo = 'mattn/webapi-vim'
