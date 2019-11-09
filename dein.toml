@@ -11,9 +11,6 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]] # ステータスライン
 repo = 'itchyny/lightline.vim'
-hook_add = '''
-"  let g:lightline = {'colorscheme': 'wombat'}
- '''
 
 [[plugins]]
 repo = 'tpope/vim-surround'
@@ -36,6 +33,11 @@ hook_add = '''
 
 [[plugins]] #カラースキーマ
 repo = 'tomasr/molokai'
+hook_add = '''
+  source ~/.config/nvim/plugins/molokai.vim
+'''
+
+#[[plugins]] #カラースキーマ
 #repo = 'w0ng/vim-hybrid'
 #repo = 'nanotech/jellybeans.vim'
 #repo = 'altercation/vim-colors-solarized'
@@ -43,22 +45,11 @@ repo = 'tomasr/molokai'
 #repo= 'jonathanfilip/vim-lucius'
 #repo = 'vim-scripts/rdark'
 #repo = 'jpo/vim-railscasts-theme'
-hook_add = '''
-  set background=dark
-  set t_Co=256
-" colorscheme 設定は source 後に行う必要があるので VimEnter で行う。
-" 但し Colorscheme イベントの発生が抑制されないよう nested を付ける。
-  au MyAutoCmd VimEnter * nested colorscheme molokai
-'''
 
 [[plugins]] # vim-indent-guides
 repo = 'nathanaelkane/vim-indent-guides'
 hook_add = '''
-  let g:indent_guides_auto_colors=0
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=238
-  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=240
-  let g:indent_guides_enable_on_vim_startup=1
-  let g:indent_guides_guide_size=2
+  source ~/.config/nvim/plugins/indent-guides.vim
 '''
 
 [[plugins]]
@@ -90,4 +81,7 @@ repo = 'kana/vim-metarw'
 
 [[plugins]]
 repo = 'mattn/vim-metarw-gdrive'
+
+[[plugins]]
+repo = 'tyru/skk.vim'
 
