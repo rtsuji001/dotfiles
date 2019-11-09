@@ -89,18 +89,32 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+if [[ -z "$TMUX" ]] ;then
+    ID="$( tmux ls | grep -vm1 attached | cut -d: -f1 )" # get the id of a deattached session
+    if [[ -z "$ID" ]] ;then # if not available create a new one
+        tmux new-session
+    else
+        tmux attach-session -t "$ID" # if available attach to it
+    fi
+fi
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
 alias crontab='crontab -i'
-alias pythontex3='/usr/local/texlive/2016/texmf-dist/scripts/pythontex/pythontex3.py'
-alias lpr='lpr -P iP2700-series'
-alias vim='nvim'
+alias pythontex3='/usr/local/texlive/2018/texmf-dist/scripts/pythontex/pythontex3.py'
+#alias lpr='lpr -P iP2700-series'
+#alias lpr='lpr -P Canon_iP2700_series'
+#alias vim='nvim'
+
+function md2tex() {
+  command pandoc $1.md -o $1.tex -N -f markdown+ignore_line_breaks+footnotes -V CJKmainfont=IPAexGothic -V titlepage=true -V toc-own-page=true --toc-depth=3 --table-of-contents --latex-engine=lualatex --template=eisvogel --listings --highlight-style=tango -V listings-disable-line-numbers -V listings-no-page-break
+}
 
 function md2pdf() {
-  command pandoc $1.md -o $1.pdf -V documentclass=ltjarticle --latex-engine=lualatex -V geometry:a4paper -V geometry:margin=2.5cm -V geometry:nohead
+  command pandoc $1.md -o $1.pdf -V documentclass=ltjsarticle -f markdown+ignore_line_breaks+footnotes+definition_lists -V geometry:a4paper -V geometry:margin=2.5cm -V geometry:nohead -V CJKmainfont=IPAexGothic --table-of-contents -V toc-own-page=true --toc-depth=3 -N --latex-engine=lualatex --template eisvogel --listings --highlight-style=tango -V listings-disable-line-numbers -V listings-no-page-break
 }
 
 function html2pdf() {
@@ -135,18 +149,6 @@ if ! shopt -oq posix; then
   fi
 fi
 
-if [ -z "$PS1" ]; then return ; fi
-
-if [ -z $TMUX ] ; then
-  if [ -z `tmux ls` ] ; then
-    tmux
-  else
-    tmux attach
-  fi
-fi
-
-#export PYTHONPATH="$PYTHONPATH:/home/rtsuji005/.config/nvim/virtualenv/neovim3/lib/python3.6/site-packages:/home/rtsuji005/.config/nvim/virtualenv/neovim2/lib/python2.7/site-packages"
-export PYTHONPATH="$PYTHONPATH:/home/rtsuji005/.config/nvim/virtualenv/neovim3/lib/python3.6/site-packages"
 export NVIM_PYTHON_LOG_FILE=/tmp/log
 export NVIM_PYTHON_LOG_LEVEL=DEBUG
 export MANPATH=/usr/local/texlive/2018/texmf-dist/doc/man:
